@@ -1,60 +1,92 @@
+var currentQuestion = 0;
+var score = 0;
+var totQuestions = questions.length;
+
+var container = document.getElementById('quizContainer');
+var questionEl = document.getElementById('question');
+var opt1 = document.getElementById('opt1');
+var opt2 = document.getElementById('opt2');
+var opt3 = document.getElementById('opt3');
+var opt4 = document.getElementById('opt4');
+var nextButton = document.getElementById('nextButton');
+var resultCont = document.getElementById('result');
 
 
-var questions = [{
-    question: "What is the main spirit used to make a Margarita?",
-    choices: ["Tequila", "Gin", "Vodka", "Lime"],
-    correctAnswer: 1
-}, {
-    question: "A mimosa is made by mixing orange juice and sparkling wine. What two ingredients make a bellini?",
-    choices: ["White wine & OJ", "Sparkling wine & peach nectar", "Sparkling water & any citrus", "Red wine & nectarines"],
-    correctAnswer: 2
-}, {
-    question: "Which drink do you shake rather than stir?",
-    choices: ["Manhattan", "Old Fashioned", "Ramos Gin Fizz", "Sazerac"],
-    correctAnswer: 3
-}, {
-    question: "The Mint Julep is the traditional drink at which sporting event?",
-    choices: ["Wimbledon", "Indy 500", "Preakness", "Kentucky Derby"],
-    correctAnswer: 4
-}, {
-    question: "If a spirit is '80 Proof' what is its percentage of alcohol?",
-    choices: ["80", "40", "20", "60"],
-    correctAnswer: 2
-
- }, {
-    question: "Which plant is used to make tequila?",
-    choices: ["Agave", "Sugar Cane", "Wheat", "Prickly Pear Cactus"],
-    correctAnswer: 1
-    
- }, {
-    question: "Which ingredient gives the Sazerac its licorice 'nose'?",
-    choices: ["Sambuca", "Absinthe", "Grappa", "Anisette"],
-    correctAnswer: 2 
-
-}, {
-    question: "Which beverage should be served at room temperature?",
-    choices: ["Belgian ale", "Punch", "Red Wine", "Rose Wine"],
-    correctAnswer: 3 
-
-}, {
-    question: "The glass known as a 'champagne coup' is said to have been modeled after whose breast?",
-    choices: ["Coco Chanel", "Princess Anne of Monaco", "Queen Isabela", "Marie Antoinette"],
-    correctAnswer: 4   
-
-}, { 
-    question: "A negroni is made with equal parts gin, sweet vermouth and which liqueur, also an apertif?",
-    choices: ["Campari", "Cinar", "Creme de violet", "Bitters"],
-    correctAnswer: 1 
-}];
-
-var showQuestion = 0;
-var correctAnswers = 0;
-var done = false;
-
-$(document).ready(function () {
+//timer 
+var number =  90;
+var intervalId;
 
 
 
 
 
-});
+function run() {
+  intervalId = setInterval(decrement, 1000);
+}
+
+function decrement() {
+
+  number--;
+
+
+  $("#show-number").html("<h2>" + number + "</h2>");
+
+
+      //  Once number hits zero...
+      if(number === 0) {
+
+        //  ...run the stop function.
+        stop();
+
+    }
+
+
+    //  The stop function
+    function stop() {
+        clearInterval(intervalId);
+    }
+}
+
+    //  Execute the run function.
+    run();
+
+
+
+
+    function loadQuestion (questionIndex) {
+        var q = questions[questionIndex]; 
+        questionEl.textContent = (questionIndex + 1) + '. ' + q.question;
+        opt1.textContent = q.option1;
+        opt2.textContent = q.option2;
+        opt3.textContent = q.option3;
+        opt4.textContent = q.option4;
+
+
+    };
+
+    function loadNextQuestion () {
+        var selectedOption = document.querySelector('input[type=radio]:checked');
+        if(!selectedOption){
+            alert('Please select your answer!');
+            return;
+        }
+        var answer = selectedOption.value;
+        if(questions[currentQuestion].answer == answer) {
+            score ++;
+        }
+
+        selectedOption.checked = false; 
+        currentQuestion++;
+        if(currentQuestion == totQuestions- 1) {
+            nextButton.textContent = "Finish";
+        }
+
+        if(currentQuestion == totQuestions) {
+            container.style.display = 'none';
+            result.style.display = '';
+            resultCont.textContent = 'Your Score: ' + score + ' Out of 10';
+            return;
+        }
+        loadQuestion(currentQuestion);
+    }
+    loadQuestion(currentQuestion);

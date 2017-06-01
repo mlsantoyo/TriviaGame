@@ -1,26 +1,38 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Drink Up!</title>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+      <title>Drink Up!</title>
   <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-  
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
-    <div class="container">
-         <h1>I like a cocktail now and then....and last I checked, its now!</h1>
+<div id="quizContainer" class="container">
 
-         <h2>Test your booze IQ.  You have 30 seconds to select the best answer for each question. </h2>
+<div class="title" id="show-number">Drink Up!</div>
 
-        <div class="question"></div>
-        <ul class="answers"></ul>
-        <div class="stats"></div>
-        
-    </div>
+<div id="question" class="question"></div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="crossorigin="anonymous"></script>
+<label class="option" id="option"><input type="radio" name="option" value="1" /><span id="opt1"></span></label>
+<label class="option" id="option"><input type="radio" name="option" value="2" /><span id="opt2"></span></label>
+<label class="option" id="option"><input type="radio" name="option" value="3" /><span id="opt3"></span></label>
+<label class="option" id="option"><input type="radio" name="option" value="4" /><span id="opt4"></span></label>
 
+<button id="nextButton" class="next-btn" onclick="loadNextQuestion();">Next Question</button>
+</div>
+   
+   <div id="result" class="container result" style="display:none;">
+     
+   </div>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="crossorigin="anonymous"></script>
+<script src="assets/javascript/questionList.js"></script>
 <script src="assets/javascript/app.js"></script>
+
 
 </body>
 </html>
